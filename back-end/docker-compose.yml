@@ -1,0 +1,13 @@
+services:
+    avatar-service:
+        ports:
+            - "3000:3000"
+        container_name: avatar-service
+        image: avatar-service:latest
+        restart: unless-stopped
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.avatar-service.rule=Host(`avatar-service.pillowapis.com`)"
+            - "traefik.http.routers.avatar-service.entrypoints=websecure"
+            - "traefik.http.routers.avatar-service.tls.certresolver=myresolver"
+            - "traefik.http.services.avatar-service.loadbalancer.server.port=3000"

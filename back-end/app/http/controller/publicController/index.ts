@@ -8,16 +8,16 @@ class publicController{
 
     //helper function
     getImagePath = (folderName: string, startIndex: number, endIndex: number) => {
-        //Generate Random
         const randomIndex: number = Math.floor(Math.random() * ((endIndex + 1) - startIndex)) + startIndex;
-        
         const imageName: string = this.publicNameAvatar + randomIndex + this.foramtFile;
-        const path: string = `${process.env.UPLOAD_DIR}/${folderName}/${imageName}`;
+        const path: string = `${process.env.UPLOAD_DIR || './uploads'}/${folderName}/${imageName}`;
+        console.log('Generated Image Path:', path);
         return path;
     }
 
-    get404Avatar = ()=>{
-        const path: string = `${process.env.UPLOAD_DIR}/${process.env.AVATAR_404}`;
+    get404Avatar = () => {
+        const path = `${process.env.UPLOAD_DIR || './uploads'}/${process.env.AVATAR_404 || '404.png'}`;
+        console.log('404 Avatar Path:', path);
         return path;
     }
 

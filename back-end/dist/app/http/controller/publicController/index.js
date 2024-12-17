@@ -7,14 +7,15 @@ class publicController {
         this.foramtFile = process.env.AVATAR_FORAMT_FILE ? process.env.AVATAR_FORAMT_FILE : "";
         //helper function
         this.getImagePath = (folderName, startIndex, endIndex) => {
-            //Generate Random
             const randomIndex = Math.floor(Math.random() * ((endIndex + 1) - startIndex)) + startIndex;
             const imageName = this.publicNameAvatar + randomIndex + this.foramtFile;
-            const path = `${process.env.UPLOAD_DIR}/${folderName}/${imageName}`;
+            const path = `${process.env.UPLOAD_DIR || './uploads'}/${folderName}/${imageName}`;
+            console.log('Generated Image Path:', path);
             return path;
         };
         this.get404Avatar = () => {
-            const path = `${process.env.UPLOAD_DIR}/${process.env.AVATAR_404}`;
+            const path = `${process.env.UPLOAD_DIR || './uploads'}/${process.env.AVATAR_404 || '404.png'}`;
+            console.log('404 Avatar Path:', path);
             return path;
         };
         this.getImageByUsername = (username, folderName, startIndex, endIndex) => {

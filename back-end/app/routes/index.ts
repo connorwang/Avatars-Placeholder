@@ -1,28 +1,33 @@
-const express = require('express')
-import {Request, Response, NextFunction } from 'express';
-const router = express.Router()
+import express, { Request, Response, NextFunction } from 'express';
+import publicController from "../http/controller/publicController";
+import Public from "./public";
+import Username from "./username";
+import Api from "./api";
 
-//controller
-import publicController from "./../http/controller/publicController";
+const router = express.Router();
+
+// Health check route
+router.get('/health', (req: Request, res: Response) => {
+    res.status(200).json({ 
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        env: process.env.NODE_ENV || 'development',
+        uploadDir: process.env.UPLOAD_DIR || './uploads'
+    });
+});
 
 //public
-import Public from "./public"
-router.use('/public', Public)
+router.use('/public', Public);
 
 //username
-import Username from "./username"
-router.use('/username', Username)
+router.use('/username', Username);
 
 //api
-import Api from "./api"
-router.use('/api', Api)
+router.use('/api', Api);
 
 //404
-router.all('*', (req: Request, res: Response, next: NextFunction)=>{
-    res.
-    status(200).
-    sendFile(publicController.get404Avatar(),  {root: '.'});
-    return;
+router.all('*', (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).sendFile(publicController.get404Avatar(), { root: '.' });
 });
 
 export default router;
