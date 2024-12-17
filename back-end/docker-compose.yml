@@ -1,7 +1,5 @@
 services:
     avatar-service:
-        ports:
-            - "3000:3000"
         container_name: avatar-service
         image: avatar-service:latest
         restart: unless-stopped
